@@ -1,14 +1,68 @@
-<!doctype html>
-<html lang="en">
-  <head>
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
     <meta charset="UTF-8" />
-    <!-- 随便放一个icon -->
-    <link rel="icon" type="image/svg+xml" href="/FWDao.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>FW🔪,记得改记得改</title>
-  </head>
-  <body>
-    <div id="app"></div>
-    <script type="module" src="/src/main.js"></script>
-  </body>
+    <title>華悦国際司法書士行政書士事務所</title>
+    <link rel="stylesheet" href="src/css/style.css" />
+</head>
+
+<body>
+    <!-- ===== Header ===== -->
+    <header>
+        <div class="brand">
+            <img src="src/image/LOGO_0.jpg" class="logo" alt="Kaetsu Logo">
+            <h1 id="title">華悦国際司法書士行政書士事務所</h1>
+        </div>
+
+        <nav>
+            <ul>
+                <li><a id="nav-services" data-page="services.html" class="page-link" href="#">業務案内</a></li>
+                <li><a id="nav-pricing" data-page="pricing.html" class="page-link" href="#">料金</a></li>
+                <li><a id="nav-office" data-page="office.html" class="page-link" href="#">事務所案内</a></li>
+                <li><a id="nav-faq" data-page="faq.html" class="page-link" href="#">よくある質問</a></li>
+            </ul>
+        </nav>
+
+        <div class="lang-switch">
+            <button data-lang="ja" class="active">日本語</button>
+            <button data-lang="zh">中文</button>
+        </div>
+    </header>
+
+    <div id="main-content">
+        <!-- ===== Hero ===== -->
+        <section class="hero">
+            <div class="hero-content">
+                <h2 id="hero-h2">
+                    日本での生活・ビジネスを<strong>法律の専門家</strong>がサポートします
+                </h2>
+                <p id="hero-p">
+                    不動産登記、会社設立、帰化申請など中国語で安心サポート。専門家にお任せください。
+                </p>
+                <button id="hero-btn" class="primary-btn">
+                    今すぐ相談（LINE・WeChat OK）
+                </button>
+            </div>
+        </section>
+
+        <!-- 控制弹窗可以插入二维码替换FWDao -->
+        <dialog id="consult-dialog">
+        <form method="dialog" style="margin:0;">
+            <button id="dlg-close" style="float:right;font-size:20px;border:none;background:none;cursor:pointer;">×</button>
+            <img src="/FWDao.png" alt="相談画像" style="max-width:300px;display:block;margin:20px auto;">
+        </form>
+        </dialog>
+    </div>
+    <!-- ======= 子ページ挿入用コンテナ ======= -->
+    <section id="page-container" class="hidden"></section>
+
+    <footer><small>&copy; 2025 華悦国際司法書士行政書士事務所</small></footer>
+
+    <script src="src/js/lang-switch.js" defer></script>
+    <script src="src/js/page-loader.js" defer></script>
+    <script src="src/js/dialog.js" defer></script>
+</body>
+
 </html>

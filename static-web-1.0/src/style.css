@@ -13,6 +13,19 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+/* ───────── 基本隐藏 ───────── */
+.hidden{display:none!important;}
+
+dialog {
+  padding: 0;
+  border: none;
+  border-radius: 10px;
+  box-shadow: 0 10px 30px rgba(0,0,0,.3);
+}
+::backdrop {                /* 浏览器自动生成的遮罩 */
+  background: rgba(0,0,0,.4);
+}
+
 a {
   font-weight: 500;
   color: #646cff;
