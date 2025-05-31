@@ -10,6 +10,10 @@ echo "=== Step 1: Install dependencies and build project ==="
 npm install
 npm run build
 
+echo "=== Step 1.5: Copy original JS files ==="
+cp -r src dist/src
+cp -r src/image dist/image
+
 echo "=== Step 2: Create Dockerfile ==="
 cat > Dockerfile <<EOF
 FROM nginx:alpine
