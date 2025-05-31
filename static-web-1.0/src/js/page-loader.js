@@ -1,3 +1,5 @@
+const main_tag = '<a id="nav-services" data-page="services.html" class="page-link" href="#">業務案内</a>';
+
 /* ---- hidden-tag で疑似ページ遷移を実装 ---- */
 (() => {
     const main = document.getElementById("main-content");
@@ -8,6 +10,14 @@
         const link = e.target.closest("a.page-link");
         if (!link) return;
         e.preventDefault();
+        if (link.id === "nav-services") {
+        // 「業務案内」ボタンのときはfetchせずに main-content に戻るだけ
+        holder.classList.add("hidden");
+        main.classList.remove("hidden");
+        window.scrollTo({ top: 0, behavior: "smooth" });
+        if (window.applyLang) window.applyLang();
+        return;
+    }
 
         fetch(`src/pages/${link.dataset.page}`)
             .then(res => res.ok ? res.text() : Promise.reject())
