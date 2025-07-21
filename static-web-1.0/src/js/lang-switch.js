@@ -19,17 +19,43 @@
         "pricing-title": "费用指南（参考）", "pricing-note": "※ 以下费用仅供参考，详情请面谈。", "pricing-th1": "服务项目", "pricing-th2": "费用（未税）",
         "price-row1": "所有权保存", "price-row2": "所有权转移（买卖）", "price-row3": "继承登记 基本报酬", "price-row4": "公司设立登记申请", "price-row5": "归化申请（公司职员）",
         "office-title": "事务所介绍",
-        "office-philosophy": "<strong>理念：</strong>以同理心、亲切且细致的服务，让您在日本的生活更加安心愉快。",
-        "greeting-title": "致辞", "greeting-body": "我是司法书士、行政书士王悦……（可补充中文介绍）",
+        "office-philosophy": `<strong>理念：</strong>以同样的视角，亲切、细致地为您服务。<br>让您在日本的生活更加安心、愉快，我们全力支持您。`,
+        "greeting-title": "致辞",
+        "greeting-body": `我是司法书士、行政书士王悦。<br>我出生于中国，旅居日本多年，作为司法书士、行政书士，向大家提供法律服务。<br>在作为外国人生活在日本的过程中，我也亲身经历了继承、不动产登记、公司设立等各种手续和不安。<br>正因为有这样的经验，我希望能够作为法律专家，陪伴在在日华人的身边，帮助大家在日本安心生活。<br>因此，我创立了这家事务所。<br>无论是中文还是日文，我都为大家提供一个可以放心咨询的环境。<br>我们的目标是成为大家"遇到困难时首先想到的地方"，并提供通俗易懂、贴心的法律服务。<br>希望大家在日本的生活能够更加安心、更加愉快。`,
         "address-block": "<strong>所在地：</strong>大阪市北区浪花町13-38千代田ビル北馆6階<br><strong>交通：</strong>天神桥筋六丁目站13出口 步行1分<br><strong>营业时间：</strong>平日10:00-18:00<br><strong>电话/FAX：</strong>06-6616-8879<br><strong>Email：</strong>kaetu2025@gmail.com",
-        "faq-title": "常见问题", "faq-q1": "问：我不会日语也可以咨询吗？", "faq-a1": "答：可以。本事务所支持中文，请安心咨询。", "back-btn": "返回上个页面"
+        "faq-title": "常见问题",
+        "faq-q1": "问：我不会日语也可以咨询吗？",
+        "faq-a1": "答：可以。本事务所支持中文，请安心咨询。",
+        "faq-q2": "问：咨询收费吗？",
+        "faq-a2": "答：首次咨询免费。欢迎随时联系。",
+        "faq-q3": "问：可以委托哪些手续？",
+        "faq-a3": "答：继承、不动产登记、公司设立、生活纠纷等，我们提供广泛服务。",
+        "back-btn": "返回首页"
 
     };
 
     const original = {};
-    let currentLang = "ja"; // 默认日语
+    let currentLang = localStorage.getItem('lang') || "ja"; // 默认日语，优先读取localStorage
 
-    window.addEventListener("DOMContentLoaded", () => cacheOriginalText());
+    window.addEventListener("DOMContentLoaded", () => {
+        cacheOriginalText();
+        // 页面加载时自动应用localStorage中的语言
+        if (currentLang === 'zh') {
+            Object.entries(zh).forEach(([id, txt]) => {
+                const el = document.getElementById(id);
+                if (el) el.innerHTML = txt;
+            });
+            document.documentElement.lang = "zh";
+            btns.forEach(b => b.classList.toggle("active", b.dataset.lang === 'zh'));
+        } else {
+            Object.entries(original).forEach(([id, txt]) => {
+                const el = document.getElementById(id);
+                if (el) el.innerHTML = txt;
+            });
+            document.documentElement.lang = "ja";
+            btns.forEach(b => b.classList.toggle("active", b.dataset.lang === 'ja'));
+        }
+    });
 
     function cacheOriginalText() {
         Object.keys(zh).forEach(id => {
@@ -38,8 +64,8 @@
         });
     }
 
-    window.applyLang = function () {
-        cacheOriginalText();                     // ☆ 新增：确保 latest original
+    window.applyLang = function (force) {
+        if (force) cacheOriginalText();
 
         if (currentLang === "zh") {
             Object.entries(zh).forEach(([id, txt]) => {
@@ -59,6 +85,7 @@
 
     function switchLang(lang) {
         currentLang = lang;
+        localStorage.setItem('lang', lang); // 切换时写入localStorage
         btns.forEach(b => b.classList.toggle("active", b.dataset.lang === lang));
 
         if (lang === "ja") {

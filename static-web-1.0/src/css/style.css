@@ -1,19 +1,30 @@
 /* ---------- Base Tokens ---------- */
 :root {
-    --main-color: #0067c0;
-    --accent-color: #f1c40f;
-    --gray-light: #f9f9f9;
+    --main-color: #A3B5A6;      /* 鼠尾草绿，header/footer用 */
+    --accent-color: #C97B63;    /* 砖红/浅棕色，按钮用 */
+    --gray-light: #F5ECE6;      /* 奶油色，body背景 */
+    --nav-btn-color: #C97B63;   /* 按钮主色 */
+    --nav-btn-hover: #B05C41;   /* 按钮悬停色 */
+    --block-bg: #F5ECE6;        /* 浅米白色，内容块背景，原为#E3C7B2 */
+    --text-main: #3E3E3E;       /* 深灰，主文字色 */
+    --back-btn-color: #A3B5A6;  /* 返回按钮色，和header/footer一致 */
 }
 
 * {
     box-sizing: border-box
 }
 
-body {
+html, body {
+    width: 100%;
+    overflow-x: hidden;
     margin: 0;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Hiragino Kaku Gothic ProN", Meiryo, sans-serif;
+    font-family: 'Noto Sans SC', 'Microsoft YaHei', 'Segoe UI', 'Helvetica Neue', Arial, 'Hiragino Kaku Gothic ProN', Meiryo, sans-serif;
     line-height: 1.6;
-    color: #333;
+    color: var(--text-main);
+    background: var(--gray-light);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-smooth: always;
 }
 
 img {
@@ -23,14 +34,23 @@ img {
 
 /* ---------- Header ---------- */
 header {
+    width: 100%;
+    min-width: 0;
     background: var(--main-color);
-    color: #fff;
+    color: var(--text-main);
     padding: .75rem 1.5rem;
     display: flex;
-    justify-content: space-between;
-    align-items: center;
     flex-wrap: wrap;
-    gap: .75rem
+    justify-content: flex-start;
+    align-items: center;
+    gap: .75rem;
+    box-sizing: border-box;
+    position: relative;
+    left: 0;
+    right: 0;
+    margin: 0;
+    overflow: visible;
+    z-index: 10;
 }
 
 .brand {
@@ -48,22 +68,106 @@ header {
 
 header h1 {
     margin: 0;
-    font-size: 1.3rem;
-    white-space: nowrap
+    font-size: clamp(1.1rem, 4vw, 2.2rem);
+    white-space: nowrap;
+    color: #3E3E3E;
+    font-weight: 900;
+    font-family: 'Sawarabi Mincho', 'Noto Serif JP', 'Noto Serif SC', 'Yu Mincho', serif;
+    letter-spacing: 2px;
 }
 
 nav ul {
-    margin: 0;
-    padding: 0;
-    list-style: none;
     display: flex;
-    gap: 1rem
+    flex-wrap: wrap;
+    gap: 1rem;
+    padding: 0;
+    margin: 0;
+    list-style: none;
 }
 
 nav a {
     color: #fff;
     text-decoration: none;
-    font-size: .95rem
+    font-size: .95rem;
+    font-weight: bold;
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    background-color: var(--nav-btn-color);
+    color: white;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 8px rgba(201,123,99,0.08);
+}
+
+nav a:hover {
+    background-color: var(--nav-btn-hover);
+    transform: translateY(-2px);
+}
+
+nav a.page-link {
+    width: 120px;
+    height: 48px;
+    min-width: 90px;
+    min-height: 40px;
+    max-width: 140px;
+    max-height: 60px;
+    font-size: 1rem;
+    white-space: nowrap;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    text-align: center;
+}
+
+nav a.page-link.active {
+    background: var(--gray-light) !important;
+    color: #222 !important;
+}
+
+@media (max-width: 600px) {
+  .hero nav ul {
+    display: flex !important;
+    flex-wrap: nowrap !important;
+    overflow-x: auto !important;
+    -webkit-overflow-scrolling: touch;
+    justify-content: flex-start !important;
+    gap: 0.5rem !important;
+    padding-bottom: 0.5rem;
+    width: 100vw !important;
+    margin-left: -1.5rem;
+    margin-right: -1.5rem;
+    box-sizing: border-box;
+  }
+  .hero nav ul li {
+    flex: 0 0 auto !important;
+  }
+  nav a.page-link {
+    width: 64px;
+    height: 30px;
+    min-width: 64px;
+    min-height: 30px;
+    font-size: 0.78rem;
+    padding: 0;
+  }
+  header h1 {
+    font-size: 1.1rem;
+  }
+  nav a.page-link {
+    font-size: 0.7rem;
+    letter-spacing: 0;
+  }
+}
+
+/* 为每个导航链接添加图标 */
+#nav-services::before,
+#nav-pricing::before,
+#nav-office::before,
+#nav-faq::before {
+    content: none !important;
+    display: none !important;
 }
 
 /* ---------- Lang Switch ---------- */
@@ -73,33 +177,42 @@ nav a {
 }
 
 .lang-switch button {
-    background: var(--accent-color);
+    background: var(--gray-light) !important;
+    color: #222 !important;
     border: none;
-    border-radius: 6px;
-    padding: .3rem .9rem;
+    border-radius: 12px;
+    padding: 0.2rem 0.9rem;
     cursor: pointer;
-    font-weight: bold
+    font-weight: bold;
+    font-size: 0.98rem;
+    margin: 0 0.2rem;
+    transition: background 0.2s, color 0.2s;
 }
 
 .lang-switch button.active {
-    background: #fff;
-    color: #000
+    background: var(--accent-color) !important;
+    color: #fff !important;
+}
+
+@media (max-width: 600px) {
+  .lang-switch button {
+    font-size: 0.85rem;
+    padding: 0.15rem 0.7rem;
+    border-radius: 8px;
+  }
 }
 
 /* ---------- Hero ---------- */
 .hero {
-    background: url("https://source.unsplash.com/1600x900/?japan,law") center/cover no-repeat;
+    background: #E9DED6;
     padding: 6rem 1rem;
     text-align: center;
-    color: #fff;
-    position: relative
+    color: #3E3E3E;
+    position: relative;
 }
 
 .hero::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background: rgba(0, 0, 0, .45)
+    content: none;
 }
 
 .hero-content {
@@ -126,10 +239,17 @@ nav a {
 }
 
 /* ---------- Sections ---------- */
+section, article {
+    background: var(--gray-light) !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    padding: 2rem 1rem;
+    margin-bottom: 2rem;
+}
+
 section {
-    padding: 3rem 1rem;
     max-width: 900px;
-    margin: auto
+    margin: 3rem auto;
 }
 
 section h2 {
@@ -143,6 +263,22 @@ article {
 
 article h3 {
     margin: .3rem 0
+}
+
+h1, h2, h3 {
+    font-family: 'Georgia', 'Times New Roman', serif;
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+
+h2 {
+    color: #7B8F80; /* 深鼠尾草绿，突出且优雅 */
+    font-size: 2rem;
+}
+
+h3 {
+    color: #C97B63; /* 砖红色，温柔又醒目 */
+    font-size: 1.3rem;
 }
 
 /* ---------- Pricing ---------- */
@@ -172,14 +308,39 @@ article h3 {
 
 /* ---------- Footer ---------- */
 footer {
-    background: #263238;
-    color: #fff;
+    background: var(--main-color);
+    color: var(--text-main);
     text-align: center;
     padding: 1.5rem 0;
-    font-size: .9rem
+    font-size: .9rem;
+    letter-spacing: 1px;
 }
-
 
 .hidden {
   display: none;
+}
+
+/* ---------- Back Button ---------- */
+#back-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    background-color: var(--back-btn-color);
+    color: #fff;
+    text-decoration: none;
+    border-radius: 6px;
+    font-weight: bold;
+    margin: 1rem 0;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 8px rgba(163,181,166,0.08);
+}
+
+#back-btn::before {
+    content: "⬅️";
+}
+
+#back-btn:hover {
+    background-color: #7B8F80;
+    transform: translateX(-5px);
 }
